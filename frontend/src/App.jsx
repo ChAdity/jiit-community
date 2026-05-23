@@ -15,6 +15,7 @@ import QuestionsPage from './pages/QuestionsPage';
 import CreateQuestion from './pages/CreateQuestion';
 import QuestionDetail from './pages/QuestionDetail';
 import Leaderboard from './pages/Leaderboard';
+import { Analytics } from "@vercel/analytics/react";
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
@@ -56,6 +57,7 @@ function App() {
             </ProtectedRoute>
           } />
         </Routes>
+        <Analytics />
       </div>
     </div>
   );
