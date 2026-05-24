@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const VerificationRequest = require('../models/VerificationRequest');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -167,6 +168,9 @@ const switchRole = async (req, res) => {
     user.verificationStatus = 'unverified';
 
     await user.save();
+    
+    // Clear any previous verification requests for this user so they can submit a new one
+    await VerificationRequest.deleteMany({ userId: user._id });
     
     // We can just issue a fresh token here or keep the old one since id doesn't change
     res.status(200).json({
