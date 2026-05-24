@@ -1,16 +1,31 @@
 import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import { LogOut, User as UserIcon, Menu, X } from 'lucide-react';
+import { LogOut, User as UserIcon, Menu, X, RefreshCcw } from 'lucide-react';
+import api from '../utils/api';
 
 const Navbar = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout, login } = useContext(AuthContext);
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
     navigate('/');
+  };
+
+  const handleRoleSwitch = async () => {
+    if (!window.confirm(`Are you sure you want to switch your role to ${user.role === 'student' ? 'Alumni' : 'Student'}? Your verification status will be reset.`)) {
+      return;
+    }
+    try {
+      const res = await api.put('/auth/switch-role');
+      login(res.data);
+      alert(`Role successfully switched to ${res.data.role}! Please verify your new role.`);
+      navigate('/verify');
+    } catch (error) {
+      alert('Failed to switch role');
+    }
   };
 
   return (
@@ -37,7 +52,14 @@ const Navbar = () => {
               <UserIcon size={18} />
               <span className="font-medium">{user.name}</span>
             </div>
-            <button onClick={handleLogout} className="text-gray-500 hover:text-red-600">
+            <button 
+              onClick={handleRoleSwitch} 
+              className="text-gray-500 hover:text-blue-600 flex items-center gap-1 text-sm font-medium ml-4"
+              title={`Switch to ${user.role === 'student' ? 'Alumni' : 'Student'}`}
+            >
+              <RefreshCcw size={16} /> Switch Role
+            </button>
+            <button onClick={handleLogout} className="text-gray-500 hover:text-red-600 ml-4">
               <LogOut size={20} />
             </button>
           </div>
@@ -67,6 +89,13 @@ const Navbar = () => {
                 <UserIcon size={18} />
                 <span>{user.name}</span>
               </div>
+              <button 
+                onClick={handleRoleSwitch} 
+                className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium w-full text-left px-3 mb-4"
+              >
+                <RefreshCcw size={20} />
+                Switch to {user.role === 'student' ? 'Alumni' : 'Student'}
+              </button>
               <button onClick={handleLogout} className="flex items-center gap-2 text-red-600 hover:text-red-700 font-medium w-full text-left px-3">
                 <LogOut size={20} />
                 Logout

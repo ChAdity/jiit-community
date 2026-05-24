@@ -155,4 +155,35 @@ const getLeaderboard = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser, getMe, updateProfile, getLeaderboard };
+// @desc    Switch user role
+// @route   PUT /api/auth/switch-role
+// @access  Private
+const switchRole = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    user.role = user.role === 'student' ? 'alumni' : 'student';
+    user.verificationStatus = 'unverified';
+
+    await user.save();
+    
+    // We can just issue a fresh token here or keep the old one since id doesn't change
+    res.status(200).json({
+      _id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      verificationStatus: user.verificationStatus,
+      linkedinUrl: user.linkedinUrl,
+      currentCompany: user.currentCompany,
+      currentRole: user.currentRole,
+      karma: user.karma,
+      token: generateToken(user._id),
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { registerUser, loginUser, getMe, updateProfile, getLeaderboard, switchRole };

@@ -112,6 +112,9 @@ const VerificationPage = () => {
 
         {activeTab === 'student' ? (
           <form onSubmit={handleStudentSubmit} className="space-y-6">
+            <div className="bg-blue-50 text-blue-800 p-3 rounded-lg text-sm mb-4">
+              <span className="font-semibold">Note:</span> This option is for current JIIT students graduating in <strong>2027 or later</strong>.
+            </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">JIIT College Email</label>
               <input
@@ -129,6 +132,9 @@ const VerificationPage = () => {
           </form>
         ) : (
           <form onSubmit={handleAlumniSubmit} className="space-y-6">
+            <div className="bg-blue-50 text-blue-800 p-3 rounded-lg text-sm mb-4">
+              <span className="font-semibold">Note:</span> This option is for JIIT alumni who graduated in <strong>2026 or earlier</strong>.
+            </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Upload College ID Proof</label>
               <input
