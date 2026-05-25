@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { LogOut, User as UserIcon, Menu, X, RefreshCcw } from 'lucide-react';
 import api from '../utils/api';
@@ -40,13 +40,13 @@ const Navbar = () => {
           </div>
           
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Link to="/dashboard" className="text-sm font-medium text-gray-700 hover:text-blue-600">Home</Link>
-            <Link to="/questions" className="text-sm font-medium text-gray-700 hover:text-blue-600">Q&A</Link>
-            <Link to="/bookmarks" className="text-sm font-medium text-gray-700 hover:text-blue-600">Bookmarks</Link>
-            <Link to="/leaderboard" className="text-sm font-medium text-orange-600 hover:text-orange-700 font-bold flex items-center gap-1">🏆 Leaderboard</Link>
+          <div className="hidden md:flex items-center space-x-6">
+            <NavLink to="/dashboard" className={({isActive}) => isActive ? "text-sm font-bold text-blue-700 border-b-2 border-blue-700 py-5" : "text-sm font-medium text-gray-700 hover:text-blue-600 py-5"}>Home</NavLink>
+            <NavLink to="/questions" className={({isActive}) => isActive ? "text-sm font-bold text-blue-700 border-b-2 border-blue-700 py-5" : "text-sm font-medium text-gray-700 hover:text-blue-600 py-5"}>Q&A</NavLink>
+            <NavLink to="/bookmarks" className={({isActive}) => isActive ? "text-sm font-bold text-blue-700 border-b-2 border-blue-700 py-5" : "text-sm font-medium text-gray-700 hover:text-blue-600 py-5"}>Bookmarks</NavLink>
+            <NavLink to="/leaderboard" className={({isActive}) => isActive ? "text-sm font-bold text-orange-700 border-b-2 border-orange-700 py-5 flex items-center gap-1" : "text-sm font-bold text-orange-600 hover:text-orange-700 py-5 flex items-center gap-1"}>🏆 Leaderboard</NavLink>
             {user.role === 'admin' && (
-              <Link to="/admin" className="text-sm font-medium text-gray-700 hover:text-blue-600">Admin</Link>
+              <NavLink to="/admin" className={({isActive}) => isActive ? "text-sm font-bold text-blue-700 border-b-2 border-blue-700 py-5" : "text-sm font-medium text-gray-700 hover:text-blue-600 py-5"}>Admin</NavLink>
             )}
             <div className="flex items-center space-x-2 text-sm text-gray-700 ml-4 pl-4 border-l border-gray-200">
               <UserIcon size={18} />
@@ -75,14 +75,14 @@ const Navbar = () => {
 
       {/* Mobile Menu Dropdown */}
       {isOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100">
+        <div className="md:hidden bg-white border-t border-gray-100 shadow-lg absolute w-full">
           <div className="px-4 pt-2 pb-4 space-y-1">
-            <Link to="/dashboard" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Home</Link>
-            <Link to="/questions" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Q&A</Link>
-            <Link to="/bookmarks" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Bookmarks</Link>
-            <Link to="/leaderboard" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-orange-600 hover:text-orange-700 hover:bg-orange-50 font-bold flex items-center gap-1">🏆 Leaderboard</Link>
+            <NavLink to="/dashboard" onClick={() => setIsOpen(false)} className={({isActive}) => isActive ? "block px-3 py-2 rounded-md text-base font-bold text-blue-700 bg-blue-50" : "block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"}>Home</NavLink>
+            <NavLink to="/questions" onClick={() => setIsOpen(false)} className={({isActive}) => isActive ? "block px-3 py-2 rounded-md text-base font-bold text-blue-700 bg-blue-50" : "block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"}>Q&A</NavLink>
+            <NavLink to="/bookmarks" onClick={() => setIsOpen(false)} className={({isActive}) => isActive ? "block px-3 py-2 rounded-md text-base font-bold text-blue-700 bg-blue-50" : "block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"}>Bookmarks</NavLink>
+            <NavLink to="/leaderboard" onClick={() => setIsOpen(false)} className={({isActive}) => isActive ? "block px-3 py-2 rounded-md text-base font-bold text-orange-700 bg-orange-50 flex items-center gap-1" : "block px-3 py-2 rounded-md text-base font-bold text-orange-600 hover:text-orange-700 hover:bg-orange-50 flex items-center gap-1"}>🏆 Leaderboard</NavLink>
             {user.role === 'admin' && (
-              <Link to="/admin" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Admin</Link>
+              <NavLink to="/admin" onClick={() => setIsOpen(false)} className={({isActive}) => isActive ? "block px-3 py-2 rounded-md text-base font-bold text-blue-700 bg-blue-50" : "block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"}>Admin</NavLink>
             )}
             <div className="mt-4 pt-4 border-t border-gray-100">
               <div className="flex items-center gap-2 mb-4 px-3 text-gray-800 font-medium">

@@ -43,13 +43,6 @@ const Dashboard = () => {
         
         {/* THIS IS THE NEW BUTTON LOGIC */}
         <div className="flex flex-col sm:flex-row items-center gap-3">
-          {user?.verificationStatus === 'unverified' && (
-            <Link to="/verify" className="flex items-center gap-2 bg-yellow-50 text-yellow-800 px-4 py-2 rounded-lg border border-yellow-200">
-              <AlertCircle size={18} />
-              <span className="text-sm font-medium">Verify profile to interact</span>
-            </Link>
-          )}
-          
           {user?.verificationStatus === 'verified' && user?.role !== 'student' && (
             <Link to="/create-post" className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-medium shadow-sm transition-colors">
               + Share Experience
@@ -57,6 +50,29 @@ const Dashboard = () => {
           )}
         </div>
       </div>
+
+      {user?.verificationStatus === 'unverified' && (
+        <div className="mb-8 bg-white border border-blue-100 rounded-xl p-6 shadow-sm relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-1.5 h-full bg-blue-500"></div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome to JIIT Community! 👋</h2>
+          <p className="text-gray-600 mb-6">Let's get your profile verified so you can unlock all features.</p>
+          
+          <div className="grid md:grid-cols-2 gap-4 mb-6">
+            <div className="bg-blue-50/50 rounded-lg p-4 border border-blue-50">
+              <h3 className="font-bold text-gray-900 mb-1 flex items-center gap-2">🎓 For Students</h3>
+              <p className="text-sm text-gray-600">Click verify to confirm your college email. You will get immediate access to read all interview experiences.</p>
+            </div>
+            <div className="bg-blue-50/50 rounded-lg p-4 border border-blue-50">
+              <h3 className="font-bold text-gray-900 mb-1 flex items-center gap-2">💼 For Alumni</h3>
+              <p className="text-sm text-gray-600">Click verify to upload your ID proof. Once approved, you can share your experiences and mentor students.</p>
+            </div>
+          </div>
+          
+          <Link to="/verify" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-bold shadow-sm transition-colors">
+            Verify Profile Now <ChevronRight size={18} />
+          </Link>
+        </div>
+      )}
 
       {user?.verificationStatus === 'verified' && user?.role !== 'student' && (!user?.linkedinUrl || !user?.currentCompany || !user?.currentRole) && (
         <div className="mb-8 bg-blue-50 border border-blue-100 rounded-xl p-5">
