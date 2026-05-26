@@ -110,7 +110,7 @@ const ExperienceDetail = () => {
                 </span>
               )}
               {post.authorId?.linkedinUrl && (
-                <a href={post.authorId.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 transition-colors">
+                <a href={post.authorId.linkedinUrl.startsWith('http') ? post.authorId.linkedinUrl : `https://${post.authorId.linkedinUrl}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 transition-colors">
                   <LinkedInIcon size={18} />
                 </a>
               )}
