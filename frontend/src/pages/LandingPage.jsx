@@ -49,13 +49,6 @@ const LandingPage = () => {
           </div>
         </div>
 
-        <div className="bg-blue-50/70 border border-blue-100 rounded-xl py-4 px-6 mb-12 flex items-center justify-center gap-3">
-          <Star className="text-blue-600 w-5 h-5 fill-current" />
-          <p className="text-gray-700 font-medium text-sm md:text-base">
-            <span className="font-bold text-blue-700">Stop waiting</span> for LinkedIn replies during placements. Prepare smart. <span className="font-bold text-blue-700">Stay ahead.</span>
-          </p>
-        </div>
-
         <div className="flex justify-center gap-4">
           <Link to="/login" className="btn-primary text-lg px-8 py-3">
             Login
